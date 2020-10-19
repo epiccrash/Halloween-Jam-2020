@@ -4,47 +4,64 @@ using UnityEngine;
 
 // LevelController is used to manage overall flow of game. Methods defined in
 // LevelController are accessible by referencing LevelController.Instance
-public class UnitySingleton<GameLevelController> : MonoBehaviour
+public class GameLogicController : UnitySingleton<GameLogicController>
 {
     bool _paused = false;
     [Header("Pause")]
     public KeyCode pauseKey;
     public GameObject pauseScreen;
+    public GameObject loseScreen;
 
+    
+   
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void BeginPhaseOne()
+    public void BeginPhaseOne()
     {
+        // play opening animation sequence
 
+        // wait for the animation sequence to finish
+
+        // give the player control of character
+
+        // wait for phase one to complete or for the player to skip to phase two
     }
 
-    void BeginPhaseTwo()
+    public void BeginPhaseTwo()
     {
-
+        // turn off the lights
     }
 
-    // pause/unpause the game
+    // pause/unpause the games
     void TogglePause()
     {
+        _paused = !_paused;
+
         // start/stop time
         Time.timeScale = _paused ? 0 : 1;
 
         // display pause screen
-
+        if (pauseScreen != null)
+        {
+            pauseScreen.SetActive(_paused);
+        }
     }
 
     // 
-    void Lose()
+    public void Lose()
     {
         // display lose screen
+        TogglePause();
+        loseScreen.SetActive(true);
+        
     }
 
     // executed when the player successfully completes level
-    void Win()
+    public void Win()
     {
        // display win screen
     }

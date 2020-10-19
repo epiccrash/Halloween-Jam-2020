@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitySingletonPersistent<GameManager> : MonoBehaviour
+public class GameManager : UnitySingletonPersistent<GameManager>
 {
     // STRETCH GOAL TODO: save these settings to PlayerPrefs and load them
     // when the game is initialized
