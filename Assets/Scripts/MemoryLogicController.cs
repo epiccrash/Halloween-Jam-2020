@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// control overall flow of memory game
+// control logic of memory game. the game flow is defined in GameLogicController
 public class MemoryLogicController : UnitySingleton<MemoryLogicController>
 {
-    List<TV> goodTVs;
-    List<TV> evilTVs;
+    public List<TV> goodTVs;
+    public List<TV> evilTVs;
 
     public int TVsRemaining;
 
@@ -19,15 +19,18 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
         {
             Debug.Log("tvloop");
             TV tv = g.GetComponent<TV>();
-            if (tv.isEvil)
+            if (tv.isInteractible)
             {
-                Debug.Log("add an evil TV");
-                evilTVs.Add(tv);
-            }
-            else
-            {
-                Debug.Log("Add a good tv");
-                goodTVs.Add(tv);
+                if (tv.isEvil)
+                {
+                    Debug.Log("add an evil TV");
+                    evilTVs.Add(tv);
+                }
+                else
+                {
+                    Debug.Log("Add a good tv");
+                    goodTVs.Add(tv);
+                }
             }
         }
         TVsRemaining = goodTVs.Count;

@@ -13,15 +13,31 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public GameObject loseScreen;
     public GameObject winScreen;
     
-   
+    public enum GamePhase
+    {
+        PHASE_ONE,
+        PHASE_TWO
+    };
+
+    public GamePhase phase;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        BeginPhaseOne();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(pauseKey))
+        {
+            TogglePause();
+        }
     }
 
     public void BeginPhaseOne()
     {
+        phase = GamePhase.PHASE_ONE;
         // play opening animation sequence
 
         // wait for the animation sequence to finish
@@ -33,17 +49,20 @@ public class GameLogicController : UnitySingleton<GameLogicController>
 
     public void BeginPhaseTwo()
     {
+        phase = GamePhase.PHASE_TWO;
+
         // turn off the lights
 
         // spawn the enemy
-
-        // set all of the TVs as interactible
     }
 
     // pause/unpause the games
     void TogglePause()
     {
         _paused = !_paused;
+
+        // lock/unlock cursor
+        Cursor.lockState = _paused ? CursorLockMode.None : CursorLockMode.Locked;
 
         // start/stop time
         Time.timeScale = _paused ? 0 : 1;

@@ -7,35 +7,66 @@ public class TV : MonoBehaviour
 {
     public KeyCode unplugKey;
 
-    // TVs that are not interactible cannot be turned on or off. used for Phase 1
+    // TVs that are not interactible are simply decoys and not interacted with
     public bool isInteractible;
 
-    // if the TV is unplugged when this is set to true, then the enemy is alerted
+    public bool isOn
+    {
+        get { return isOn; }
+
+        set
+        {
+            if (value == true)
+            {
+                TurnOn();
+            } else
+            {
+                Unplug();
+            }
+            isOn = value;
+        }
+    }
+
+    // TODO: if the TV is unplugged when this is set to true, then the enemy is alerted
     public bool isEvil;
 
-    // TV Material is set to offMaterial when unplugged
-    public Material offMaterial;
+    [Header("Appearance")]
+    // when isOn is set to true, the TV will activate the onState GameObject and
+    // deactivate the offState GameObject. And the reverse happens when isOn
+    // set to false.
+    public GameObject onState;
+    public GameObject offState;
 
     bool _hasUnplugged = false;
+
+    private void Start()
+    {
+        isOn = isInteractible;
+    }
 
     // unplug the tv by going near to it and pressing the button
     private void OnTriggerStay(Collider other)
     {
+        // interactible tvs are in-play, non-interactible tvs are decoys
         if (isInteractible)
         {
-            if (Input.GetKeyDown(unplugKey))
+            // cannot interact with TVs during phase 1
+            if (GameLogicController.Instance.phase != GameLogicController.GamePhase.PHASE_ONE)
             {
-                if (!_hasUnplugged)
+                if (Input.GetKeyDown(unplugKey))
                 {
-                    Unplug();
-                    if (isEvil)
+                    if (!_hasUnplugged)
                     {
-                        MemoryLogicController.Instance.UnplugEvil(this);
-                        Debug.Log("Unplug a an evil TV");
-                    } else
-                    {
-                        MemoryLogicController.Instance.UnplugGood(this);
-                        Debug.Log("Unplug a good TV");
+                        Unplug();
+                        if (isEvil)
+                        {
+                            MemoryLogicController.Instance.UnplugEvil(this);
+                            Debug.Log("Unplug a an evil TV");
+                        } else
+                        {
+                            MemoryLogicController.Instance.UnplugGood(this);
+                            Debug.Log("Unplug a good TV");
+                        }
                     }
                 }
             }
@@ -46,11 +77,20 @@ public class TV : MonoBehaviour
     {
         _hasUnplugged = true;
 
-        // play the unplug animation
+        // TODO: play the unplug animation
 
-        gameObject.GetComponent<Renderer>().material = offMaterial;
+        onState.SetActive(false);
+        offState.SetActive(true);
         return;
     }
 
+    // the player will never actually turn on any TVs, but this method is
+    // used to automatically display that the TV is turned on when
+    // the isOn boolean is set to true
+    void TurnOn()
+    {
+        onState.SetActive(true);
+        offState.SetActive(false);
+    }
    
 }

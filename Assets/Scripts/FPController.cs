@@ -58,45 +58,48 @@ public class FPController : MonoBehaviour
 
     void CameraLook()
     {
-        float mousex = Input.GetAxis("Mouse X");
-        if (!Mathf.Approximately(mousex, 0))
+        // do not move the camera if the timeScale is zero (game is paused)
+        if (!Mathf.Approximately(Time.timeScale, 0f))
         {
-            gameObject.transform.Rotate(0, mousex * lookspeed, 0);
-        }
-
-        float mousey = Input.GetAxis("Mouse Y");
-        if (!Mathf.Approximately(mousey, 0))
-        {
-            int inv = mouseInvert ? 1 : -1;
-            cam.transform.Rotate(new Vector3(mousey * lookspeed * inv, 0, 0), Space.Self);
-            // clamp rotation if camera is rotated out of
-            Vector3 eulers = cam.transform.eulerAngles;
-            float upperBound = 360 - camLookMaxAngle;
-            float lowerBound = camLookMaxAngle;
-
-            // if out of bounds
-            if (eulers.x < upperBound && eulers.x > lowerBound)
+            // rotate camera according to mouse input
+            float mousex = Input.GetAxis("Mouse X");
+            if (!Mathf.Approximately(mousex, 0))
             {
-                // snap to above
-                if (Mathf.Abs(eulers.x - upperBound) < Mathf.Abs(eulers.x - lowerBound))
-                {
-                    cam.transform.SetPositionAndRotation(cam.transform.position,
-                            Quaternion.Euler(new Vector3(upperBound, eulers.y, eulers.z)));
-                }
-                else
-                { // snap to below
-                    cam.transform.SetPositionAndRotation(cam.transform.position,
-                            Quaternion.Euler(new Vector3(lowerBound, eulers.y, eulers.z)));
-                }
-
-
+                gameObject.transform.Rotate(0, mousex * lookspeed, 0);
             }
 
-            // no z rotation
-            if (eulers.z != 0)
+            float mousey = Input.GetAxis("Mouse Y");
+            if (!Mathf.Approximately(mousey, 0))
             {
-                cam.transform.SetPositionAndRotation(cam.transform.position,
-                    Quaternion.Euler(new Vector3(eulers.x, eulers.y, 0)));
+                int inv = mouseInvert ? 1 : -1;
+                cam.transform.Rotate(new Vector3(mousey * lookspeed * inv, 0, 0), Space.Self);
+
+                // rotation clamping
+                Vector3 eulers = cam.transform.eulerAngles;
+                float upperBound = 360 - camLookMaxAngle;
+                float lowerBound = camLookMaxAngle;
+                // if out of bounds
+                if (eulers.x < upperBound && eulers.x > lowerBound)
+                {
+                    // snap to above
+                    if (Mathf.Abs(eulers.x - upperBound) < Mathf.Abs(eulers.x - lowerBound))
+                    {
+                        cam.transform.SetPositionAndRotation(cam.transform.position,
+                                Quaternion.Euler(new Vector3(upperBound, eulers.y, eulers.z)));
+                    }
+                    else
+                    { // snap to below
+                        cam.transform.SetPositionAndRotation(cam.transform.position,
+                                Quaternion.Euler(new Vector3(lowerBound, eulers.y, eulers.z)));
+                    }
+                }
+
+                // no z rotation
+                if (eulers.z != 0)
+                {
+                    cam.transform.SetPositionAndRotation(cam.transform.position,
+                        Quaternion.Euler(new Vector3(eulers.x, eulers.y, 0)));
+                }
             }
         }
     }
