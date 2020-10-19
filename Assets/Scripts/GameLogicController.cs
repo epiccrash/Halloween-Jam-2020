@@ -57,7 +57,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public void Lose()
     {
         // display lose screen
-        TogglePause();
+        Time.timeScale = 0;
         if (loseScreen != null) loseScreen.SetActive(true);
         
     }
@@ -69,7 +69,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     {
         Debug.Log("You win!");
         // display the win screen
-        TogglePause();
+        Time.timeScale = 0;
         if (winScreen != null) winScreen.SetActive(true);
     }   
 }
