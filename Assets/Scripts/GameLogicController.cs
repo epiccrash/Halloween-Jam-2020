@@ -45,10 +45,8 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         Time.timeScale = _paused ? 0 : 1;
 
         // display pause screen
-        if (pauseScreen != null)
-        {
-            pauseScreen.SetActive(_paused);
-        }
+        if (pauseScreen != null) pauseScreen.SetActive(_paused);
+        
     }
 
     // 
@@ -56,7 +54,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     {
         // display lose screen
         TogglePause();
-        loseScreen.SetActive(true);
+        if (loseScreen != null) loseScreen.SetActive(true);
         
     }
 

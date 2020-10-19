@@ -2,24 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// control overall flow of memory game
 public class MemoryLogicController : UnitySingleton<MemoryLogicController>
 {
-    public List<TV> goodTVs;
-    public List<TV> evilTVs;
+    List<TV> goodTVs;
+    List<TV> evilTVs;
 
     int TVsRemaining;
 
     private void Start()
     {
-        TVsRemaining = goodTVs.Count;     
+        // initialize goodTVs and evilTVs lists
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("TV"))
+        {
+            goodTVs = new List<TV>();
+            evilTVs = new List<TV>();
+            TV tv = g.GetComponent<TV>();
+            if (tv.isEvil)
+            {
+                evilTVs.Add(tv);
+            }
+            else
+            {
+                goodTVs.Add(tv);
+            }
+        }
+
+        TVsRemaining = goodTVs.Count;
     }
 
+    // Executed when the player unplugs an evil TV
     public void UnplugEvil(TV tv)
     {
         // alert the enemy? spawn new enemy?
         evilTVs.Remove(tv);
     }
 
+    // Executed when the player unplugs a good TV
     public void UnplugGood(TV tv)
     {
         goodTVs.Remove(tv);

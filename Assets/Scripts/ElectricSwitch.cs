@@ -8,13 +8,20 @@ public class ElectricSwitch : MonoBehaviour
 
     public KeyCode trigger;
 
+    bool _hasSwitched = false;
+
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (!_hasSwitched)
         {
-            if (Input.GetKey(trigger))
+            if (other.gameObject.tag == "Player")
             {
-                GameLogicController.Instance.BeginPhaseTwo();
+
+                if (Input.GetKey(trigger))
+                {
+                    _hasSwitched = true;
+                    GameLogicController.Instance.BeginPhaseTwo();
+                }
             }
         }
     }
