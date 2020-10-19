@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : UnitySingletonPersistent<GameManager>
 {
+
     // STRETCH GOAL TODO: save these settings to PlayerPrefs and load them
     // when the game is initialized
 

@@ -11,7 +11,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public KeyCode pauseKey;
     public GameObject pauseScreen;
     public GameObject loseScreen;
-
+    public GameObject winScreen;
     
    
 
@@ -34,6 +34,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public void BeginPhaseTwo()
     {
         // turn off the lights
+
+        // spawn the enemy
+
+        // set all of the TVs as interactible
     }
 
     // pause/unpause the games
@@ -59,10 +63,13 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     }
 
     // executed when the player successfully completes level
+    // this function is called by ExitDoor.cs when the player tries to exit through
+    // front of the store
     public void Win()
     {
-       // display win screen
-    }
-
-    
+        Debug.Log("You win!");
+        // display the win screen
+        TogglePause();
+        if (winScreen != null) winScreen.SetActive(true);
+    }   
 }
