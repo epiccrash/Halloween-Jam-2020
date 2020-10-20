@@ -44,7 +44,6 @@ public class FPController : MonoBehaviour
     void FixedUpdate()
     {
         movement = Vector3.zero;
-        Debug.Log(gameObject.GetComponent<CharacterController>().isGrounded);
         Gravity();
         Move();
         Jump();

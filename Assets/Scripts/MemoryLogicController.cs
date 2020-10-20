@@ -37,7 +37,6 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
             }
         }
         TVsRemaining = goodTVs.Count;
-        Debug.Log(goodTVs.Count);
     }
 
     // Executed when the player unplugs an evil TV
