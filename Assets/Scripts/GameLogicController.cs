@@ -12,6 +12,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public GameObject pauseScreen;
     public GameObject loseScreen;
     public GameObject winScreen;
+
+    [Header("Gameplay")]
+    public GameObject player;
+    public List<Monster> monsters;
     
     public enum GamePhase
     {
