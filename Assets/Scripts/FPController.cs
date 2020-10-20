@@ -107,9 +107,9 @@ public class FPController : MonoBehaviour
     void Move()
     {
         float horz = Input.GetAxis("Horizontal");
-        movement += (gameObject.transform.right) * horzMovementSpeed * horz;
+        movement += (gameObject.transform.right) * horzMovementSpeed * horz * 0.1f;
         float vert = Input.GetAxis("Vertical");
-        movement += (gameObject.transform.forward) * forwMovementSpeed * vert;
+        movement += (gameObject.transform.forward) * forwMovementSpeed * vert * 0.1f;
         
     }
 

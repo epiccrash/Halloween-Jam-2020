@@ -16,6 +16,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Rigidbody))]
 public class Monster : MonoBehaviour
 {
     [Header("Visual Effects")]
@@ -31,9 +32,8 @@ public class Monster : MonoBehaviour
     Transform _currWaypoint;
     Plane[] _planes;
     Camera _playerCam;
-    SphereCollider _collider;
+    CapsuleCollider _collider;
     NavMeshAgent _agent;
-    bool _isIdling;
 
     public enum MonsterState
     {
@@ -43,21 +43,24 @@ public class Monster : MonoBehaviour
 
     public MonsterState state;
 
-
     // Animation
     Animator animator;
-
-    float _idleTimer;
 
     // if we run into a waypoint, idle for a bit and then go to another waypoint
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Waypoint")
+
+        if (state == MonsterState.ROAM)
         {
-            if (other.gameObject.transform == _currWaypoint)
+            if (other.gameObject.tag == "Waypoint")
             {
-                // idle for random amt of time and then move to next waypoint
-                Idle(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
+                Debug.Log("Waypoint collide");
+                if (other.gameObject.transform.position == _currWaypoint.position)
+                {
+
+                    // idle for random amt of time and then move to next waypoint
+                    Idle(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
+                }
             }
         }
     }
@@ -65,12 +68,14 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         _playerCam = Camera.main;
-        _collider = GetComponent<SphereCollider>();
+        _collider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
         GoToWaypoint(Random.Range(0, waypoints.Count));
         state = MonsterState.ROAM;
-        _agent = GetComponent<NavMeshAgent>();
-        RoamBegin();
+
+        if (state == MonsterState.ROAM) RoamBegin();
+        else PersueBegin();
     }
 
     // called when state changes to PERSUE
@@ -93,9 +98,11 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(MonsterCanSeePlayer());
+        Debug.Log(PlayerCanSeeMonster());
         if (state == MonsterState.ROAM)
         {
-            
+
             // if the player sees the monster, enter PERSUE
             if (PlayerCanSeeMonster())
                 PersueBegin();
@@ -133,8 +140,9 @@ public class Monster : MonoBehaviour
     // idles for a given amount of time and then moves to the next waypoint
     void Idle(float time, int nextWaypoint)
     {
+        Debug.Log("Idle monster begin");
         animator.SetInteger("Speed", 0);
-        _isIdling = true;
+        _agent.speed = 0;
         _doIdleArgs args; args.time = time; args.waypointNum = nextWaypoint;
         StartCoroutine("DoIdle", args);
     }
@@ -154,6 +162,7 @@ public class Monster : MonoBehaviour
             timer -= Time.deltaTime;
             yield return null;
         }
+        Debug.Log("idle monster end");
         GoToWaypoint(args.waypointNum);
     }
 
@@ -161,16 +170,15 @@ public class Monster : MonoBehaviour
     // the player
     void GoToPlayer()
     {
-        _isIdling = false;
         _agent.destination = GameLogicController.Instance.player.transform.position;
     }
 
     // goes to waypoint i in the list of waypoints
     void GoToWaypoint(int index)
     {
-        _isIdling = false;
         Walk();
-        _agent.destination = waypoints[index].position;
+        _currWaypoint = waypoints[index];
+        _agent.destination = _currWaypoint.position;
     }
     // -------------------------------------------------------------------------
 
@@ -179,7 +187,7 @@ public class Monster : MonoBehaviour
     {
         Ray ray = new Ray();
         ray.origin = monsterHead.transform.position;
-        ray.direction = (GameLogicController.Instance.player.transform.position = monsterHead.transform.position).normalized;
+        ray.direction = (GameLogicController.Instance.player.transform.position - monsterHead.transform.position).normalized;
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, playerMaxVisibleDistance))
         {
@@ -200,7 +208,7 @@ public class Monster : MonoBehaviour
     {
         Ray ray = new Ray();
         ray.origin = monsterHead.transform.position;
-        ray.direction = (GameLogicController.Instance.player.transform.position = monsterHead.transform.position).normalized;
+        ray.direction = (GameLogicController.Instance.player.transform.position - monsterHead.transform.position).normalized;
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, playerMaxVisibleDistance))
         {
