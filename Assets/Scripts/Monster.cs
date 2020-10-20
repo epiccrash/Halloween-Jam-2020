@@ -38,7 +38,7 @@ public class Monster : MonoBehaviour
     public enum MonsterState
     {
         ROAM,
-        PERSUE,
+        PURSUE,
         STARE
     }
 
@@ -84,7 +84,7 @@ public class Monster : MonoBehaviour
     {
         Debug.Log("PERSUE begin");
         Run();
-        state = MonsterState.PERSUE;
+        state = MonsterState.PURSUE;
         // TODO: play monster scream sound
     }
 
@@ -120,7 +120,7 @@ public class Monster : MonoBehaviour
 
             // TODO: play roam sound
 
-        } else if (state == MonsterState.PERSUE)
+        } else if (state == MonsterState.PURSUE)
         {
             GoToPlayer();
 
@@ -187,7 +187,7 @@ public class Monster : MonoBehaviour
             timer -= Time.deltaTime;
             yield return null;
         }
-        if (state == MonsterState.PERSUE)
+        if (state == MonsterState.PURSUE)
             yield break;
         Debug.Log("idle monster end");
         GoToWaypoint(args.waypointNum);
