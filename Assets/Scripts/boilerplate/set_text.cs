@@ -7,7 +7,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class set_text : MonoBehaviour
 {
-    [SerializeField] private StringRef s;
+    [SerializeField] private StringRef s = null;
 
     private string old_text;
     

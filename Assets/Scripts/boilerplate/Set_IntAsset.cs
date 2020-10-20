@@ -3,7 +3,7 @@ using UnityEngine.Playables;
 
 public class Set_IntAsset : PlayableAsset
 {
-    [SerializeField] private int constant;
+    [SerializeField] private int constant = 0;
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
     {
         var playable = ScriptPlayable<Set_IntPlayable>.Create(graph);

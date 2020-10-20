@@ -5,8 +5,8 @@ using UnityEngine;
 public class trigger_event_on_input : MonoBehaviour
 {
 
-    [SerializeField] private UnitEvent hook;
-    [SerializeField] private KeyCode k;
+    [SerializeField] private UnitEvent hook = null;
+    [SerializeField] private KeyCode k = 0;
     // Start is called before the first frame update
     void Start()
     {

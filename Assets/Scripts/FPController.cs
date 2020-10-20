@@ -8,9 +8,12 @@ using UnityEngine;
 public class FPController : MonoBehaviour
 {
     [Header("Sound")]
-    public AudioSource playerSoundEffectSource;
-    public AudioClip[] footsteps;
-    [Space(10)]
+    public AudioSource playerFootstepSource;
+    public List<AudioClip> footsteps;
+	public float pitch_min = 0.95f;
+	public float pitch_max = 1.05f;
+	public float minSpeedForFootsteps = 0.8f;
+	[Space(10)]
 
     [Header("Camera")]
     public GameObject cam; // player camera
@@ -33,6 +36,7 @@ public class FPController : MonoBehaviour
     private float save_forwMoementSpeed;
   
     Vector3 movement;
+
 
     // Start is called before the first frame update
     void Start()
@@ -110,8 +114,15 @@ public class FPController : MonoBehaviour
         movement += (gameObject.transform.right) * horzMovementSpeed * horz * 0.1f;
         float vert = Input.GetAxis("Vertical");
         movement += (gameObject.transform.forward) * forwMovementSpeed * vert * 0.1f;
-        
-    }
+		// Footstep sound
+		float currentSpeed = (new Vector2(horz, vert)).magnitude;
+		if (currentSpeed > minSpeedForFootsteps && !playerFootstepSource.isPlaying) {
+			playerFootstepSource.pitch = Random.Range(pitch_min, pitch_max);
+			playerFootstepSource.PlayOneShot(footsteps[Random.Range(0, footsteps.Count)]);
+		} else if (currentSpeed < minSpeedForFootsteps) {
+			playerFootstepSource.Stop();
+		}
+	}
 
     void Gravity()
     {

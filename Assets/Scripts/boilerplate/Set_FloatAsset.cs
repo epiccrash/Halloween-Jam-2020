@@ -22,8 +22,6 @@ public class Set_VarPlayable<T,TEvent,R> : PlayableBehaviour where TEvent : Unit
     public T val;
     public R Reference;
 
-    private float t = 0;
-
     public override void OnPlayableCreate(Playable playable)
     {
     }
@@ -36,7 +34,7 @@ public class Set_VarPlayable<T,TEvent,R> : PlayableBehaviour where TEvent : Unit
 
 public class Set_FloatAsset : PlayableAsset
 {
-    [SerializeField] private float constant;
+    [SerializeField] private float constant = 0.0f;
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
     {
         var playable = ScriptPlayable<Set_VarPlayable<float,FloatUnityEvent,Reference<float,FloatUnityEvent>>>.Create(graph);

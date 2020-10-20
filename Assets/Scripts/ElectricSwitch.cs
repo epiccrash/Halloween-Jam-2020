@@ -8,6 +8,7 @@ public class ElectricSwitch : MonoBehaviour
 {
 
     public KeyCode trigger;
+	public AudioSource audioSource;
 
     bool _hasSwitched = false;
 
@@ -29,7 +30,8 @@ public class ElectricSwitch : MonoBehaviour
                 {
                     _hasSwitched = true;
                     anim.SetTrigger("turn off");
-                    GameLogicController.Instance.BeginPhaseTwo();
+					audioSource.Play();
+					GameLogicController.Instance.BeginPhaseTwo();
                 }
             }
         }

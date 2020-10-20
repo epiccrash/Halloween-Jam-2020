@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class EventRetrigger<T,TEventObject,TEvent> : MonoBehaviour where TEvent : UnityEvent<T>, new() where TEventObject : EventObject<T,TEvent> 
 {
-    [SerializeField] TEventObject e;
+    [SerializeField] TEventObject e = null;
     private Sum<T,Unit> args = Sum<T, Unit>.Inr(new Unit());
     private Action cleanup;
     // Start is called before the first frame update
