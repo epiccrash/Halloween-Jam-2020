@@ -5,3 +5,4 @@
 ### Sources
 Low Res Shader: https://unitylist.com/p/vie/Low-Res
 Static Shader: https://forum.unity.com/threads/tv-static-shader.354472/
+ModeSeven Font: https://www.fontspace.com/modeseven-font-f2369
