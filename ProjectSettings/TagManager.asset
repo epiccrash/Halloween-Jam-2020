@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TV
   - Waypoint
+  - Monster
   layers:
   - Default
   - TransparentFX

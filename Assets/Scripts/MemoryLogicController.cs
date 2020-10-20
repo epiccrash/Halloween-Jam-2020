@@ -7,6 +7,7 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
 {
     public List<TV> goodTVs;
     public List<TV> evilTVs;
+    public List<TV> allTVs;
 
     public int TVsRemaining;
 
@@ -25,11 +26,13 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
                 {
                     Debug.Log("add an evil TV");
                     evilTVs.Add(tv);
+                    allTVs.Add(tv);
                 }
                 else
                 {
                     Debug.Log("Add a good tv");
                     goodTVs.Add(tv);
+                    allTVs.Add(tv);
                 }
             }
         }

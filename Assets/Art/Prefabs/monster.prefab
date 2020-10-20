@@ -2401,7 +2401,7 @@ GameObject:
   - component: {fileID: 4929482272901398953}
   m_Layer: 0
   m_Name: monster
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2477,7 +2477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterHead: {fileID: 3573211304855712814}
-  playerMaxVisibleDistance: 30
+  playerMaxVisibleDistance: 9.9
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -2492,10 +2492,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  waypointIdleTimeRange: {x: 2, y: 10}
+  waypointIdleTimeRange: {x: 5, y: 13}
   monsterCam: {fileID: 1521326460198028743}
-  walkSpeed: 2.5
-  runSpeed: 5
+  walkSpeed: 1.95
+  runSpeed: 4.76
   state: 0
 --- !u!136 &464999958007002105
 CapsuleCollider:
@@ -2521,7 +2521,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0

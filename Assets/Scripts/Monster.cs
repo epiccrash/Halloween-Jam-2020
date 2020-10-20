@@ -38,7 +38,8 @@ public class Monster : MonoBehaviour
     public enum MonsterState
     {
         ROAM,
-        PERSUE
+        PERSUE,
+        STARE
     }
 
     public MonsterState state;
@@ -59,7 +60,7 @@ public class Monster : MonoBehaviour
                 {
 
                     // idle for random amt of time and then move to next waypoint
-                    Idle(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
+                    IdleGoToWayPoint(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
                 }
             }
         }
@@ -96,16 +97,26 @@ public class Monster : MonoBehaviour
         GoToWaypoint(Random.Range(0, waypoints.Count));
     }
 
+    // called when state changes to STARE
+    void StareBegin()
+    {
+        Debug.Log("STARE BEGIN");
+        state = MonsterState.STARE;
+        Idle();
+    }
+
     private void Update()
     {
-        Debug.Log(MonsterCanSeePlayer());
-        Debug.Log(PlayerCanSeeMonster());
         if (state == MonsterState.ROAM)
         {
 
             // if the player sees the monster, enter PERSUE
-            if (PlayerCanSeeMonster())
+            if (PlayerCanSeeMonster() && MonsterCanSeePlayer())
                 PersueBegin();
+
+            // if monster sees player, enter STARE
+            if (!PlayerCanSeeMonster() && MonsterCanSeePlayer())
+                StareBegin();
 
             // TODO: play roam sound
 
@@ -117,6 +128,16 @@ public class Monster : MonoBehaviour
             // see the player, enter ROAM
             // TODO: add a cooldown in between when the player leaves the
             // monster's vision and when the monster enters ROAM
+            if (!MonsterCanSeePlayer())
+                RoamBegin();
+        } else if (state == MonsterState.STARE)
+        {
+            Stare();
+
+            // if the player sees the monster, enter PERSUE
+            if (PlayerCanSeeMonster() && MonsterCanSeePlayer())
+                PersueBegin();
+
             if (!MonsterCanSeePlayer())
                 RoamBegin();
         }
@@ -137,16 +158,20 @@ public class Monster : MonoBehaviour
         _agent.speed = runSpeed;
     }
 
-    // idles for a given amount of time and then moves to the next waypoint
-    void Idle(float time, int nextWaypoint)
+
+    // wrapper for calling DoStare coroutine
+    void Stare()
+    {
+        monsterHead.transform.LookAt(GameLogicController.Instance.player.transform);
+    }
+
+    // wrapper for calling DoIdle coroutine
+    void Idle()
     {
         Debug.Log("Idle monster begin");
         animator.SetInteger("Speed", 0);
         _agent.speed = 0;
-        _doIdleArgs args; args.time = time; args.waypointNum = nextWaypoint;
-        StartCoroutine("DoIdle", args);
     }
-
     struct _doIdleArgs
     {
         public float time;
@@ -157,11 +182,13 @@ public class Monster : MonoBehaviour
     IEnumerator DoIdle(_doIdleArgs args)
     {
         float timer = args.time;
-        while (timer > 0)
+        while (timer > 0 && state == MonsterState.ROAM)
         {
             timer -= Time.deltaTime;
             yield return null;
         }
+        if (state == MonsterState.PERSUE)
+            yield break;
         Debug.Log("idle monster end");
         GoToWaypoint(args.waypointNum);
     }
@@ -180,6 +207,14 @@ public class Monster : MonoBehaviour
         _currWaypoint = waypoints[index];
         _agent.destination = _currWaypoint.position;
     }
+
+    // idles for a given amount of time and then moves to the next waypoint
+    void IdleGoToWayPoint(float time, int nextWaypoint)
+    {
+        Idle();
+        _doIdleArgs args; args.time = time; args.waypointNum = nextWaypoint;
+        StartCoroutine("DoIdle", args);
+    }
     // -------------------------------------------------------------------------
 
     // ------------------------- Helper functions ------------------------------
@@ -194,9 +229,10 @@ public class Monster : MonoBehaviour
             if (hit.collider.tag == "Player") // nothing in between monster and player
             {
                 _planes = GeometryUtility.CalculateFrustumPlanes(monsterCam);
-                // monster inside of cam frustrum
-                if (GeometryUtility.TestPlanesAABB(_planes, _collider.bounds))
+                // player inside of cam frustrum
+                if (GeometryUtility.TestPlanesAABB(_planes, GameLogicController.Instance.player.GetComponent<CapsuleCollider>().bounds))
                 {
+                    Debug.Log("MONSTER CAN SEE PLAYER");
                     return true;
                 }
             }
@@ -207,17 +243,18 @@ public class Monster : MonoBehaviour
     public bool PlayerCanSeeMonster()
     {
         Ray ray = new Ray();
-        ray.origin = monsterHead.transform.position;
-        ray.direction = (GameLogicController.Instance.player.transform.position - monsterHead.transform.position).normalized;
+        ray.origin = GameLogicController.Instance.player.transform.position;
+        ray.direction = (monsterHead.transform.position - ray.origin).normalized;
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, playerMaxVisibleDistance))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            if (hit.collider.tag == "Player") // nothing in between monster and player
+            if (hit.collider.tag == "Monster") // nothing in between monster and player
             {
                 _planes = GeometryUtility.CalculateFrustumPlanes(_playerCam);
                 // monster inside of cam frustrum
                 if (GeometryUtility.TestPlanesAABB(_planes, _collider.bounds))
                 {
+                    Debug.Log("PLAYER CAN SEE MONSTER");
                     return true;
                 }
             }

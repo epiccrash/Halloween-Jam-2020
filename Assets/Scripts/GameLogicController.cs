@@ -42,18 +42,28 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public void BeginPhaseOne()
     {
         phase = GamePhase.PHASE_ONE;
+
+        foreach (TV tv in MemoryLogicController.Instance.allTVs)
+        {
+            tv.DisplayState();
+        }
+
         // play opening animation sequence
 
         // wait for the animation sequence to finish
 
         // give the player control of character
 
-        // wait for phase one to complete or for the player to skip to phase two
     }
 
     public void BeginPhaseTwo()
     {
         phase = GamePhase.PHASE_TWO;
+
+        foreach(TV tv in MemoryLogicController.Instance.allTVs)
+        {
+            tv.DisplayState();
+        }
 
         // turn off the lights
 
