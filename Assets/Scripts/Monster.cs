@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-// the monster has two states
+// the monster has three states
 // MonsterState.ROAM and MonsterState.PERSUE
 //
 // in PERSUE, the monster is running towards the player and screaming.
@@ -13,6 +13,9 @@ using UnityEngine.AI;
 // in ROAM, the monster randomly selects waypoints to walk to and then
 // idles at them for a random range of time (defined by waypointIdleTimeRange).
 // when ROAM state is intiated, RoamBegin is called
+//
+// in STARE, the monster is not moving and is staring at the player. if the player
+// looks at the monster while in stare mode, PERSUE is automatically engaged
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -55,10 +58,8 @@ public class Monster : MonoBehaviour
         {
             if (other.gameObject.tag == "Waypoint")
             {
-                Debug.Log("Waypoint collide");
                 if (other.gameObject.transform.position == _currWaypoint.position)
                 {
-
                     // idle for random amt of time and then move to next waypoint
                     IdleGoToWayPoint(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
                 }
@@ -82,7 +83,6 @@ public class Monster : MonoBehaviour
     // called when state changes to PERSUE
     void PersueBegin()
     {
-        Debug.Log("PERSUE begin");
         Run();
         state = MonsterState.PURSUE;
         // TODO: play monster scream sound
@@ -91,7 +91,6 @@ public class Monster : MonoBehaviour
     // called when state changes to ROAM
     void RoamBegin()
     {
-        Debug.Log("ROAM begin");
         Walk();
         state = MonsterState.ROAM;
         GoToWaypoint(Random.Range(0, waypoints.Count));
@@ -100,7 +99,6 @@ public class Monster : MonoBehaviour
     // called when state changes to STARE
     void StareBegin()
     {
-        Debug.Log("STARE BEGIN");
         state = MonsterState.STARE;
         Idle();
     }
@@ -159,7 +157,7 @@ public class Monster : MonoBehaviour
     }
 
 
-    // wrapper for calling DoStare coroutine
+    // wrapper for calling coroutine
     void Stare()
     {
         monsterHead.transform.LookAt(GameLogicController.Instance.player.transform);
@@ -168,7 +166,6 @@ public class Monster : MonoBehaviour
     // wrapper for calling DoIdle coroutine
     void Idle()
     {
-        Debug.Log("Idle monster begin");
         animator.SetInteger("Speed", 0);
         _agent.speed = 0;
     }
@@ -189,7 +186,6 @@ public class Monster : MonoBehaviour
         }
         if (state == MonsterState.PURSUE)
             yield break;
-        Debug.Log("idle monster end");
         GoToWaypoint(args.waypointNum);
     }
 
@@ -232,7 +228,6 @@ public class Monster : MonoBehaviour
                 // player inside of cam frustrum
                 if (GeometryUtility.TestPlanesAABB(_planes, GameLogicController.Instance.player.GetComponent<CapsuleCollider>().bounds))
                 {
-                    Debug.Log("MONSTER CAN SEE PLAYER");
                     return true;
                 }
             }
@@ -254,7 +249,6 @@ public class Monster : MonoBehaviour
                 // monster inside of cam frustrum
                 if (GeometryUtility.TestPlanesAABB(_planes, _collider.bounds))
                 {
-                    Debug.Log("PLAYER CAN SEE MONSTER");
                     return true;
                 }
             }
