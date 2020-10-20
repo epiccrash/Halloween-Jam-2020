@@ -1420,7 +1420,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8950265562796933603, guid: 35cff97983129454c9d74143c0c7015d, type: 3}
+  - {fileID: 2100000, guid: 571820c2e7fbe42769072b22fdb231ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2994,6 +2994,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 26.038305
       objectReference: {fileID: 0}
+    - target: {fileID: -5980087796226647853, guid: 0ea7d89fdcab94913b18cc1718877903, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 571820c2e7fbe42769072b22fdb231ab, type: 2}
     - target: {fileID: 919132149155446097, guid: 0ea7d89fdcab94913b18cc1718877903, type: 3}
       propertyPath: m_Name
       value: television_rubin_fbx
