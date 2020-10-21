@@ -10,10 +10,11 @@ public class TV : MonoBehaviour
     // TVs that are not interactible are simply decoys and not interacted with
     public bool isInteractible;
 
-    // inInteractible must be set to true for isOn to have any effect
-    public bool isOn
+    // inInteractible must be set to true for On to have any effect
+    public bool On
     {
-        get { return isOn; }
+        
+        get { return On; }
 
         set
         {
@@ -21,6 +22,7 @@ public class TV : MonoBehaviour
             {
                 if (value == true)
                 {
+                    On = true;
                     if ((GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE && !isEvil) ||
                         GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_TWO)
                     {
@@ -28,10 +30,11 @@ public class TV : MonoBehaviour
                     } 
                 } else
                 {
+                    On = false;
                     Unplug();
                 }
             }
-            isOn = value;
+            On = false;
         }
     }
 
@@ -49,7 +52,7 @@ public class TV : MonoBehaviour
 
     private void Start()
     {
-        isOn = isInteractible;
+        On = isInteractible;
     }
 
     // unplug the tv by going near to it and pressing the button
@@ -106,7 +109,7 @@ public class TV : MonoBehaviour
     // they do during phase 2. Good tvs are always on
     public void DisplayState()
     {
-        isOn = isOn;
+        On = On;
     }
    
 }
