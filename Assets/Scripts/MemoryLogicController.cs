@@ -18,20 +18,16 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
         // initialize goodTVs and evilTVs lists
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("TV"))
         {
-            Debug.Log("tvloop");
             TV tv = g.GetComponent<TV>();
-            if (tv.isInteractible)
+            if (tv.Evil())
             {
-                if (tv.isEvil)
-                {
-                    evilTVs.Add(tv);
-                    allTVs.Add(tv);
-                }
-                else
-                {
-                    goodTVs.Add(tv);
-                    allTVs.Add(tv);
-                }
+                evilTVs.Add(tv);
+                allTVs.Add(tv);
+            }
+            else
+            {
+                goodTVs.Add(tv);
+                allTVs.Add(tv);
             }
         }
         TVsRemaining = goodTVs.Count;

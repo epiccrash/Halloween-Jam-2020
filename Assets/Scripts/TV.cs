@@ -7,10 +7,21 @@ public class TV : MonoBehaviour
 {
     public KeyCode unplugKey;
 
-    // TVs that are not interactible are simply decoys and not interacted with
-    public bool isInteractible;
+    // Evil TVS are off during the day and on at night
+    // Good TVs are on during the day and on at night
+    // Decoy TVs are on during the day and off at night
+    // Off TVs are always off
+    public enum TVVariant
+    {
+        EVIL,
+        GOOD,
+        DECOY,
+        OFF
+    }
 
-    public bool On;
+    public TVVariant variant;
+
+    public bool isOn;
 
     // TODO: if the TV is unplugged when this is set to true, then the enemy is alerted
     public bool isEvil;
@@ -32,8 +43,8 @@ public class TV : MonoBehaviour
     // unplug the tv by going near to it and pressing the button
     private void OnTriggerStay(Collider other)
     {
-        // interactible tvs are in-play, non-interactible tvs are decoys
-        if (isInteractible)
+        // can only interact with EVIl and GOOD tvs, DECOY and OFF are just decoration
+        if (variant == TVVariant.EVIL || variant == TVVariant.GOOD)
         {
             // cannot interact with TVs during phase 1
             if (GameLogicController.Instance.phase != GameLogicController.GamePhase.PHASE_ONE)
@@ -52,7 +63,7 @@ public class TV : MonoBehaviour
     void Unplug()
     {
         _hasUnplugged = true;
-        On = false;
+        isOn = false;
         // TODO: play the unplug animation
 
         onState.SetActive(false);
@@ -77,9 +88,9 @@ public class TV : MonoBehaviour
     // the isOn boolean is set to true
     void TurnOn()
     {
-        if (isInteractible)
+        if (variant != TVVariant.OFF)
         {
-            On = true;
+            isOn = true;
             if ((GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE && !isEvil) ||
                 GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_TWO)
             {
@@ -89,15 +100,33 @@ public class TV : MonoBehaviour
         }
     }
 
+    public bool Evil()
+    {
+        return variant == TVVariant.EVIL;
+    }
+
+
     // displays the current state of the tv depending on GameLogicController.Instance.phase
     // and whether the tv is evil. Evil tvs do not turn on during phase 1 but
     // they do during phase 2. Good tvs are always on
     public void DisplayState()
     {
-        if (On)
-            TurnOn();
-        else
-            Unplug();
+        if (GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE)
+        {
+            if (variant == TVVariant.GOOD || variant == TVVariant.DECOY)
+                TurnOn();
+            else
+                Unplug();
+        } else
+        {
+            if (variant == TVVariant.GOOD || variant == TVVariant.EVIL)
+            {
+                TurnOn();
+            } else
+            {
+                Unplug();
+            }
+        }
     }
    
 }

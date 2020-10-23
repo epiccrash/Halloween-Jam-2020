@@ -13,8 +13,15 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public GameObject loseScreen;
     public GameObject winScreen;
 
-    [Header("Gameplay")]
+    [Header("Lighting")]
+    public GameObject phase1Lights;
+
+    [Header("Player")]
     public GameObject player;
+
+    [Header("Monster")]
+    public GameObject monsterPrefab;
+    public Transform monsterSpawn;
     public List<Monster> monsters;
     
     public enum GamePhase
@@ -22,7 +29,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         PHASE_ONE,
         PHASE_TWO
     };
-
+    [HideInInspector]
     public GamePhase phase;
 
     private void Start()
@@ -66,8 +73,12 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         }
 
         // turn off the lights
+        phase1Lights.SetActive(false);
 
         // spawn the enemy
+        GameObject m = Instantiate(monsterPrefab);
+        m.transform.position = monsterSpawn.transform.position;
+        m.SetActive(true);
     }
 
     // pause/unpause the games
