@@ -24,13 +24,11 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
             {
                 if (tv.isEvil)
                 {
-                    Debug.Log("add an evil TV");
                     evilTVs.Add(tv);
                     allTVs.Add(tv);
                 }
                 else
                 {
-                    Debug.Log("Add a good tv");
                     goodTVs.Add(tv);
                     allTVs.Add(tv);
                 }

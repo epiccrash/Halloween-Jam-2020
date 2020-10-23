@@ -2898,6 +2898,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2847470865532669473, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
+      propertyPath: isInteractible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847470865532669473, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
+      propertyPath: On
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847470865532669473, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
+      propertyPath: isEvil
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6139635797653598392, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
       propertyPath: m_Name
       value: TV
