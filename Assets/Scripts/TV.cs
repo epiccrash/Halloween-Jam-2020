@@ -21,8 +21,6 @@ public class TV : MonoBehaviour
 
     public TVVariant variant;
 
-    public bool isOn;
-
     // TODO: if the TV is unplugged when this is set to true, then the enemy is alerted
     public bool isEvil;
 
@@ -63,11 +61,6 @@ public class TV : MonoBehaviour
     void Unplug()
     {
         _hasUnplugged = true;
-        isOn = false;
-        // TODO: play the unplug animation
-
-        onState.SetActive(false);
-        offState.SetActive(true);
 
         if (isEvil)
         {
@@ -79,6 +72,10 @@ public class TV : MonoBehaviour
             MemoryLogicController.Instance.UnplugGood(this);
             Debug.Log("Unplug a good TV");
         }
+
+        variant = TVVariant.OFF;
+
+        // TODO: play the unplug animation
         return;
     }
 
@@ -90,7 +87,6 @@ public class TV : MonoBehaviour
     {
         if (variant != TVVariant.OFF)
         {
-            isOn = true;
             if ((GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE && !isEvil) ||
                 GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_TWO)
             {
