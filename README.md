@@ -8,3 +8,4 @@ Static Shader: https://forum.unity.com/threads/tv-static-shader.354472/
 ModeSeven Font: https://www.fontspace.com/modeseven-font-f2369
 Shelf model by Up1x at: https://sketchfab.com/3d-models/storage-shelf-dabec01a63fb4243aa3e5d1d746713a4
 Tile texture from: http://www.photoshoptextures.com/floor-textures/brown-tile-texture.jpg
+Lights font from: https://www.1001fonts.com/nusaliver-font.html

@@ -261,16 +261,16 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.35
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 2
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 3
+  MaxDistance: 12
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2404,16 +2404,16 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.12
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 2
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 4
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -3478,13 +3478,13 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2847470865532669473, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
---- !u!4 &7336735319134599555 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1926227150315548363, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
-  m_PrefabInstance: {fileID: 9181155762164012872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &503565978180270185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8761473881861599009, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
+  m_PrefabInstance: {fileID: 9181155762164012872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7336735319134599555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1926227150315548363, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
   m_PrefabInstance: {fileID: 9181155762164012872}
   m_PrefabAsset: {fileID: 0}
