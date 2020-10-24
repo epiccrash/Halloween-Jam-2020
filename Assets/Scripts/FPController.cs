@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // this should be attatched to the player object
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterController))]
 public class FPController : MonoBehaviour
 {
@@ -37,26 +36,34 @@ public class FPController : MonoBehaviour
   
     Vector3 movement;
 
+    bool _hasControl= true;
 
     // Start is called before the first frame update
     void Start()
     {
         save_forwMoementSpeed = forwMovementSpeed;
         save_horzMoementSpeed = horzMovementSpeed;
+        GiveControl();
     }
 
     void FixedUpdate()
     {
-        movement = Vector3.zero;
-        Gravity();
-        Move();
-        Jump();
-        gameObject.GetComponent<CharacterController>().Move(movement);
+        if (_hasControl)
+        {
+            movement = Vector3.zero;
+            Gravity();
+            Move();
+            Jump();
+            gameObject.GetComponent<CharacterController>().Move(movement);
+        }
     }
 
     void Update()
     {
-        CameraLook(); // must be called in Update to avoid edge case behavior
+        if (_hasControl)
+        {
+            CameraLook(); // must be called in Update to avoid edge case behavior
+        }
     }
 
     void CameraLook()
@@ -160,5 +167,15 @@ public class FPController : MonoBehaviour
             horzMovementSpeed = save_horzMoementSpeed;
             forwMovementSpeed = save_forwMoementSpeed;
         }
+    }
+
+    public void RemoveControl()
+    {
+        _hasControl = false;
+    }
+
+    public void GiveControl()
+    {
+        _hasControl = true;
     }
 }

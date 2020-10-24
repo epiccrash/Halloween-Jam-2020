@@ -19,6 +19,8 @@ public class GameLogicController : UnitySingleton<GameLogicController>
 
     [Header("Player")]
     public GameObject player;
+    public AnimationClip introAnimation;
+    public GameObject bossNote;
 
     [Header("Monster")]
     public GameObject monsterPrefab;
@@ -50,6 +52,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public void BeginPhaseOne()
     {
         phase = GamePhase.PHASE_ONE;
+        player.GetComponent<FPController>().RemoveControl();
 
         foreach (TV tv in MemoryLogicController.Instance.allTVs)
         {
@@ -57,10 +60,24 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         }
 
         // play opening animation sequence
+        player.transform.Find("Camera").GetComponent<Animator>().SetTrigger("Intro");
 
         // wait for the animation sequence to finish
-
         // give the player control of character
+        StartCoroutine("WaitForIntroAnimationFinish");
+
+
+
+    }
+
+    // waits for the intro animation to finish and then gives control to the player
+    // displays boss note and plays sound
+    IEnumerator WaitForIntroAnimationFinish()
+    {
+        yield return new WaitForSeconds(introAnimation.length);
+
+        // CONTROL IS GIVEN BACK TO PLAYER FROM BossNote.cs
+        bossNote.SetActive(true);
 
     }
 
@@ -83,7 +100,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     }
 
     // pause/unpause the games
-    void TogglePause()
+    public void TogglePause()
     {
         _paused = !_paused;
 
