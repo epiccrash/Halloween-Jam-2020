@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unplugKey: 101
-  isInteractible: 0
+  variant: 0
   isEvil: 0
   onState: {fileID: 1292680219877258353}
   offState: {fileID: 5016748865025203543}

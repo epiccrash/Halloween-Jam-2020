@@ -10,6 +10,12 @@ public class ElectricSwitch : MonoBehaviour
     public KeyCode trigger;
 	public AudioSource audioSource;
 
+    [Header("Lights")]
+    [SerializeField]
+    private Transform lightsParentObject;
+    [SerializeField]
+    private Material lightsOffMaterial;
+
     bool _hasSwitched = false;
 
     Animator anim;
@@ -31,10 +37,21 @@ public class ElectricSwitch : MonoBehaviour
                     _hasSwitched = true;
                     anim.SetTrigger("turn off");
 					audioSource.Play();
+                    StartCoroutine(TurnOffLights());
 					GameLogicController.Instance.BeginPhaseTwo();
                 }
             }
         }
     }
 
+    private IEnumerator TurnOffLights()
+    {
+        foreach (Transform lightObj in lightsParentObject)
+        {
+            lightObj.GetComponent<MeshRenderer>().material = lightsOffMaterial;
+            lightObj.GetChild(0).gameObject.SetActive(false);
+            yield return null;
+        }
+        yield return null;
+    }
 }
