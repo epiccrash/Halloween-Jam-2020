@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.002402986, g: 0.089336246, b: 0.16981131, a: 1}
+  m_Color: {r: 0.002402986, g: 0.089336246, b: 0.16981131, a: 0.87058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -326,13 +326,13 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Hey,\n\nThanks for taking this job. This store hasn't had a proper janitor
     in god knows how long. \n\nThere's one thing that I forgot to tell you. At the
-    end of your shift, you must turn off the televisions . Here's what you need to
-    know:\n\n1) Walk around the store and memorize which televisions are turned on.\n\n2)
-    Turn off the main store power. The switch is to the side of the exit door.\n\n3)
-    Go back and turn off any televisions that are still on. The TVs are connected
-    to a backup generator and need to be turned off seperately.\n\n4) A few TVs that
-    were originally off may turn on once you cut the power. Do NOT turn those ones
-    off. Leave them on. \n\nGood luck.\n\n- Kel"
+    end of your shift, you must turn off the televisions in a certain way. Here's
+    what you need to know:\n\n1) Walk around the store and memorize which televisions
+    are turned on.\n\n2) Turn off the main lights. The switch is to the side of the
+    exit door.\n\n3) Go back and turn off any televisions that are still on. \n\n4)
+    A few TVs that were originally off may turn on once you cut the lights. We don't
+    know why they turn on. But DO NOT turn those ones off. Trust me.\n\nGood luck.\n\n-
+    Kel"
 --- !u!1 &8521485985791675522
 GameObject:
   m_ObjectHideFlags: 0
