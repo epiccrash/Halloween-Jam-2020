@@ -30,7 +30,13 @@ public class TV : MonoBehaviour
     public GameObject onState;
     public GameObject offState;
 
+	[Header("Sound")]
+	public AudioSource audioSource;
+	public AudioClip turnOffClip;
+
     bool _hasUnplugged = false;
+
+
 
     private void Start()
     {
@@ -60,6 +66,8 @@ public class TV : MonoBehaviour
     void Unplug()
     {
         _hasUnplugged = true;
+		// Play sound effect
+		audioSource.PlayOneShot(turnOffClip);
 
         if (Evil())
         {

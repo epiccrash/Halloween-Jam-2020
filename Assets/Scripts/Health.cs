@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     public GameObject damageScreen;
 	public AudioSource damageAudioSource;
 	public AudioClip damageClip;
+	public AudioClip damageClip2;
 
 	Animator _damageScreenAnimator;
     Animator _playerAnimator;
@@ -43,6 +44,7 @@ public class Health : MonoBehaviour
             if (health > 0)
             {
 				damageAudioSource.PlayOneShot(damageClip);
+				damageAudioSource.PlayOneShot(damageClip2);
                 // TODO play the damage animation
                 _damageScreenAnimator.SetTrigger("Damage");
             } else 
