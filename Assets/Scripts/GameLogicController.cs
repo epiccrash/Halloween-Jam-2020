@@ -99,7 +99,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     }
 
     // pause/unpause the games
-    void TogglePause()
+    public void TogglePause()
     {
         _paused = !_paused;
 

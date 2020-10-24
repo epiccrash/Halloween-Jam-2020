@@ -406,8 +406,8 @@ MonoBehaviour:
   mouseInvert: 0
   lookspeed: 1
   camLookMaxAngle: 70
-  horzMovementSpeed: 1
-  forwMovementSpeed: 1
+  horzMovementSpeed: 0.5
+  forwMovementSpeed: 0.5
   fallSpeed: 9.24
   jumpAmount: 1
   jumpKey: 32
