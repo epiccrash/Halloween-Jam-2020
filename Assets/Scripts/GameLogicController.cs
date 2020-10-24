@@ -97,12 +97,19 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         
     }
 
-    // 
     public void Lose()
     {
+        Animator loseScreenAnimator = loseScreen.GetComponent<Animator>();
+        FPController f = player.GetComponent<FPController>();
+        // activate cursor
+        Cursor.lockState = CursorLockMode.None;
+        // lock player in place
+        f.forwMovementSpeed = 0;
+        f.horzMovementSpeed = 0;
+        f.lookspeed = 0;
         // display lose screen
-        Time.timeScale = 0;
         if (loseScreen != null) loseScreen.SetActive(true);
+        loseScreenAnimator.SetTrigger("Fade in");
         
     }
 
@@ -111,7 +118,6 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     // front of the store
     public void Win()
     {
-        Debug.Log("You win!");
         // display the win screen
         Time.timeScale = 0;
         if (winScreen != null) winScreen.SetActive(true);
