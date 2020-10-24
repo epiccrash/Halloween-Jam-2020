@@ -2911,8 +2911,8 @@ MonoBehaviour:
   - {fileID: 0}
   waypointIdleTimeRange: {x: 5, y: 13}
   monsterCam: {fileID: 1521326460198028743}
-  walkSpeed: 1.95
-  runSpeed: 4.76
+  walkSpeed: 0.56
+  runSpeed: 2.76
   pursueLoseSightCooldown: 1.27
   damageCooldown: 2
   damageAmount: 50

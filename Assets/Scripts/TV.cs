@@ -29,6 +29,7 @@ public class TV : MonoBehaviour
     // set to false.
     public GameObject onState;
     public GameObject offState;
+    public GameObject evilState; // activated when evil tv unplugged
 
 	[Header("Sound")]
 	public AudioSource audioSource;
@@ -69,18 +70,35 @@ public class TV : MonoBehaviour
 		// Play sound effect
 		audioSource.PlayOneShot(turnOffClip);
 
-        if (Evil())
+        if (GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE)
         {
-            MemoryLogicController.Instance.UnplugEvil(this);
-        }
-        else
+            if (Evil())
+            {
+                MemoryLogicController.Instance.UnplugEvil(this);
+            }
+            else
+            {
+                MemoryLogicController.Instance.UnplugGood(this);
+            }
+            offState.SetActive(true);
+            onState.SetActive(false);
+        } else
         {
-            MemoryLogicController.Instance.UnplugGood(this);
-        }
+            if (Evil())
+            {
+                Debug.Log("Unplug during phase 2");
+                evilState.SetActive(true);
+                MemoryLogicController.Instance.UnplugEvil(this);
+            }
+            else
+            {
+                MemoryLogicController.Instance.UnplugGood(this);
+                offState.SetActive(true);
+            }
+            onState.SetActive(false);
 
-        onState.SetActive(false);
-        offState.SetActive(true);
-        variant = TVVariant.OFF;
+            variant = TVVariant.OFF;
+        }
 
         // TODO: play the unplug animation
         return;
