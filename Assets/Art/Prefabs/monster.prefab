@@ -2879,7 +2879,7 @@ MonoBehaviour:
   runSpeed: 4.76
   pursueLoseSightCooldown: 1.09
   damageCooldown: 2
-  damageAmount: 25
+  damageAmount: 50
   state: 0
 --- !u!136 &464999958007002105
 CapsuleCollider:

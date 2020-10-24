@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
     Animator _damageScreenAnimator;
     Animator _playerAnimator;
 
+    bool _hasDied = false;
     private void Start()
     {
         _playerAnimator = gameObject.GetComponent<Animator>();
@@ -32,22 +33,25 @@ public class Health : MonoBehaviour
 
     public void Damage(int amt)
     {
-        health -= amt;
-        if (health > 0)
+        if (!_hasDied)
         {
-            // TODO play the damage sound
-            // TODO play the damage animation
-            _damageScreenAnimator.SetTrigger("Damage");
-        } else 
-        {
-            Die();
+            health -= amt;
+            if (health > 0)
+            {
+                // TODO play the damage sound
+                // TODO play the damage animation
+                _damageScreenAnimator.SetTrigger("Damage");
+            } else 
+            {
+                Die();
+            }
         }
     }
 
     void Die()
     {
-        // TODO play the death animation
-        // TODO show the death screen
+        _hasDied = true;
+        GameLogicController.Instance.Lose();
     }
 
 }

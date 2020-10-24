@@ -213,7 +213,7 @@ Transform:
   m_GameObject: {fileID: 6139635797653598392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.43925, y: 0.95920324, z: 9.74}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5680378540656920557}
   - {fileID: 1926227150315548363}
@@ -282,8 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unplugKey: 101
-  isInteractible: 0
-  isEvil: 0
+  variant: 0
   onState: {fileID: 1292680219877258353}
   offState: {fileID: 5016748865025203543}
 --- !u!135 &2025205438100726258

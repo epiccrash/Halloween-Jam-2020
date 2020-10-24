@@ -89,7 +89,13 @@ public class Monster : MonoBehaviour
                     IdleGoToWayPoint(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
                 }
             }
-        } else if (other.gameObject.tag == "Player")
+        }
+    }
+
+    // damage the player if colliding with monster
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
         {
             if (!_cooldownDmg)
             {
