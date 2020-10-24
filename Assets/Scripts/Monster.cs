@@ -222,6 +222,19 @@ public class Monster : MonoBehaviour
         GoToWaypoint(args.waypointNum);
     }
 
+    // tells the monster to roam to the player
+    public void Alert()
+    {
+        if (state == MonsterState.ROAM)
+        {
+            Walk();
+            _currWaypoint = GameLogicController.Instance.player.transform;
+            _agent.destination = _currWaypoint.position;
+        } else if (state == MonsterState.STARE)
+        {
+            PursueBegin();
+        }
+    }
     // moves towards player. must be executed every frame so agent can lock on to
     // the player
     void GoToPlayer()

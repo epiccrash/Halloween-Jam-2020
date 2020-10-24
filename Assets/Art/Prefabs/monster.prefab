@@ -256,10 +256,10 @@ AudioSource:
   m_GameObject: {fileID: 413446366836696309}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2121668097638289727, guid: cbc2fb7af50c748b4a3c312472396ae3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.32
+  m_Volume: 0.275
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1689,7 +1689,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 571820c2e7fbe42769072b22fdb231ab, type: 2}
+  - {fileID: 2100000, guid: 3da70c21c42b74096895b596014f32f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2417,7 +2417,7 @@ AudioSource:
   m_GameObject: {fileID: 6684088267335442117}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2121668097638289727, guid: cbc2fb7af50c748b4a3c312472396ae3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.1
@@ -2913,7 +2913,7 @@ MonoBehaviour:
   monsterCam: {fileID: 1521326460198028743}
   walkSpeed: 1.95
   runSpeed: 4.76
-  pursueLoseSightCooldown: 1.09
+  pursueLoseSightCooldown: 1.27
   damageCooldown: 2
   damageAmount: 50
   state: 0
@@ -3514,13 +3514,13 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2847470865532669473, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
---- !u!4 &503565978180270185 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8761473881861599009, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
-  m_PrefabInstance: {fileID: 9181155762164012872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7336735319134599555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1926227150315548363, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
+  m_PrefabInstance: {fileID: 9181155762164012872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &503565978180270185 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8761473881861599009, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
   m_PrefabInstance: {fileID: 9181155762164012872}
   m_PrefabAsset: {fileID: 0}
