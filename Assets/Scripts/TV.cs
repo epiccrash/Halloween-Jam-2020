@@ -39,34 +39,29 @@ public class TV : MonoBehaviour
 
 
 
-    private void Start()
-    {
-        DisplayState();
+    private void Start() {
+		DisplayState();
     }
 
-    // unplug the tv by going near to it and pressing the button
-    private void OnTriggerStay(Collider other)
+	// unplug the tv by going near to it and pressing the button
+	private void OnTriggerStay(Collider other)
     {
-        // can only interact with EVIl and GOOD tvs, DECOY and OFF are just decoration
-        if (variant == TVVariant.EVIL || variant == TVVariant.GOOD)
+		// can only interact with EVIl and GOOD tvs, DECOY and OFF are just decoration
+		if (variant == TVVariant.EVIL || variant == TVVariant.GOOD)
         {
             // cannot interact with TVs during phase 1
-            if (GameLogicController.Instance.phase != GameLogicController.GamePhase.PHASE_ONE)
-            {
-                if (Input.GetKeyDown(unplugKey))
-                {
-                    if (!_hasUnplugged)
-                    {
-                        Unplug();
+            if (GameLogicController.Instance.phase != GameLogicController.GamePhase.PHASE_ONE) {
+				if (Input.GetKey(unplugKey)) {
+					if (!_hasUnplugged) {
+						Unplug();
                     }
                 }
             }
         }
     }
 
-    void Unplug()
-    {
-        _hasUnplugged = true;
+    void Unplug() {
+		_hasUnplugged = true;
 		// Play sound effect
 		audioSource.PlayOneShot(turnOffClip);
 
@@ -114,6 +109,7 @@ public class TV : MonoBehaviour
             if ((GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE && !Evil()) ||
                 GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_TWO)
             {
+				_hasUnplugged = false;
                 onState.SetActive(true);
                 offState.SetActive(false);
             }
