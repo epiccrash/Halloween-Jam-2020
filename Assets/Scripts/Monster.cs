@@ -38,6 +38,11 @@ public class Monster : MonoBehaviour
     CapsuleCollider _collider;
     NavMeshAgent _agent;
 
+    [Header("Damage parameters")]
+    public float damageCooldown; // in seconds
+    public int damageAmount; // player has 100 health total
+    bool _cooldownDmg;
+
     public enum MonsterState
     {
         ROAM,
@@ -50,23 +55,6 @@ public class Monster : MonoBehaviour
     // Animation
     Animator animator;
 
-    // if we run into a waypoint, idle for a bit and then go to another waypoint
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if (state == MonsterState.ROAM)
-        {
-            if (other.gameObject.tag == "Waypoint")
-            {
-                if (other.gameObject.transform.position == _currWaypoint.position)
-                {
-                    // idle for random amt of time and then move to next waypoint
-                    IdleGoToWayPoint(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
-                }
-            }
-        }
-    }
-
     private void Start()
     {
         _playerCam = Camera.main;
@@ -76,31 +64,32 @@ public class Monster : MonoBehaviour
         GoToWaypoint(Random.Range(0, waypoints.Count));
         state = MonsterState.ROAM;
 
+        _cooldownDmg = false;
         if (state == MonsterState.ROAM) RoamBegin();
         else PersueBegin();
     }
 
-    // called when state changes to PERSUE
-    void PersueBegin()
+    // if we run into a waypoint, idle for a bit and then go to another waypoint
+    private void OnTriggerEnter(Collider other)
     {
-        Run();
-        state = MonsterState.PURSUE;
-        // TODO: play monster scream sound
-    }
 
-    // called when state changes to ROAM
-    void RoamBegin()
-    {
-        Walk();
-        state = MonsterState.ROAM;
-        GoToWaypoint(Random.Range(0, waypoints.Count));
-    }
-
-    // called when state changes to STARE
-    void StareBegin()
-    {
-        state = MonsterState.STARE;
-        Idle();
+        if (other.gameObject.tag == "Waypoint")
+        {
+            if (state == MonsterState.ROAM)
+            {
+                if (other.gameObject.transform.position == _currWaypoint.position)
+                {
+                    // idle for random amt of time and then move to next waypoint
+                    IdleGoToWayPoint(Random.Range(waypointIdleTimeRange[0], waypointIdleTimeRange[1]), Random.Range(0, waypoints.Count));
+                }
+            }
+        } else if (other.gameObject.tag == "Player")
+        {
+            if (!_cooldownDmg)
+            {
+                DamagePlayer();
+            }
+        }
     }
 
     private void Update()
@@ -143,6 +132,30 @@ public class Monster : MonoBehaviour
     }
 
     // ----------------------- Animation and Navigation -----------------------
+
+    // called when state changes to PERSUE
+    void PersueBegin()
+    {
+        Run();
+        state = MonsterState.PURSUE;
+        // TODO: play monster scream sound
+    }
+
+    // called when state changes to ROAM
+    void RoamBegin()
+    {
+        Walk();
+        state = MonsterState.ROAM;
+        GoToWaypoint(Random.Range(0, waypoints.Count));
+    }
+
+    // called when state changes to STARE
+    void StareBegin()
+    {
+        state = MonsterState.STARE;
+        Idle();
+    }
+
     void Walk()
     {
         animator.SetInteger("Speed", 1);
@@ -255,5 +268,23 @@ public class Monster : MonoBehaviour
         }
         return false;
     }
-    // ------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    //
+    // ------------------------- Damaging player -------------------------------
+
+    // damages the player my "damageAmount" and applied cooldown for "damageCooldown" seconds
+    void DamagePlayer()
+    {
+        GameLogicController.Instance.player.GetComponent<Health>().Damage(damageAmount);
+        StartCoroutine("DamageCooldown");
+    }
+
+    IEnumerator DamageCooldown()
+    {
+        _cooldownDmg = true;
+        yield return new WaitForSeconds(damageCooldown);
+        _cooldownDmg = false;
+    }
+    // -------------------------------------------------------------------------
+
 }

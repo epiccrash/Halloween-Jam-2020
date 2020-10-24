@@ -284,8 +284,8 @@ MonoBehaviour:
   unplugKey: 101
   isInteractible: 0
   isEvil: 0
-  onState: {fileID: 0}
-  offState: {fileID: 0}
+  onState: {fileID: 1292680219877258353}
+  offState: {fileID: 5016748865025203543}
 --- !u!135 &2025205438100726258
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -368,6 +368,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62b6c86d6b554bd9917af8959777eaa, type: 3}
+--- !u!1 &1292680219877258353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d62b6c86d6b554bd9917af8959777eaa, type: 3}
+  m_PrefabInstance: {fileID: 2103722115725789472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1926227150315548363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d62b6c86d6b554bd9917af8959777eaa, type: 3}
@@ -442,6 +447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62b6c86d6b554bd9917af8959777eaa, type: 3}
+--- !u!1 &5016748865025203543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d62b6c86d6b554bd9917af8959777eaa, type: 3}
+  m_PrefabInstance: {fileID: 5286798607635636230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5680378540656920557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d62b6c86d6b554bd9917af8959777eaa, type: 3}
