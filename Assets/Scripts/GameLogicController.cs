@@ -8,8 +8,9 @@ public class GameLogicController : UnitySingleton<GameLogicController>
 {
     bool _paused = false;
     [Header("Pause")]
-    public KeyCode pauseKey;
-    public GameObject pauseScreen;
+    public KeyCode pauseKey = KeyCode.Tab;
+	public KeyCode pauseKey2 = KeyCode.Escape;
+	public GameObject pauseScreen;
     public GameObject loseScreen;
     public GameObject winScreen;
 
@@ -40,7 +41,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
 
     private void Update()
     {
-        if (Input.GetKeyDown(pauseKey))
+        if (Input.GetKeyDown(pauseKey) || Input.GetKeyDown(pauseKey2))
         {
             TogglePause();
         }
