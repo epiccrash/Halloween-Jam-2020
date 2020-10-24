@@ -26,12 +26,18 @@ public class Monster : MonoBehaviour
     public GameObject monsterHead; // for animating head towards player
 
     [Header("Navigation")]
+    [Range(0,50)]
     public float playerMaxVisibleDistance;
     public List<Transform> waypoints;
     public Vector2 waypointIdleTimeRange;
     public Camera monsterCam;
+    [Range(0,5)]
     public float walkSpeed;
+    [Range(0,5)]
     public float runSpeed;
+    [Range(0.1f,5)]
+    public float pursueLoseSightCooldown; // the amount of time in seconds that the monster waits
+        // between losing sight of the player and returning back to roam mode
     Transform _currWaypoint;
     Plane[] _planes;
     Camera _playerCam;
@@ -62,11 +68,11 @@ public class Monster : MonoBehaviour
         animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         GoToWaypoint(Random.Range(0, waypoints.Count));
-        state = MonsterState.ROAM;
 
         _cooldownDmg = false;
+
         if (state == MonsterState.ROAM) RoamBegin();
-        else PersueBegin();
+        else PursueBegin();
     }
 
     // if we run into a waypoint, idle for a bit and then go to another waypoint
@@ -99,31 +105,23 @@ public class Monster : MonoBehaviour
 
             // if the player sees the monster, enter PERSUE
             if (PlayerCanSeeMonster() && MonsterCanSeePlayer())
-                PersueBegin();
+                PursueBegin();
 
             // if monster sees player, enter STARE
             if (!PlayerCanSeeMonster() && MonsterCanSeePlayer())
                 StareBegin();
 
-            // TODO: play roam sound
-
         } else if (state == MonsterState.PURSUE)
         {
             GoToPlayer();
 
-            // if the player cannot see the monster and the monster also cannot
-            // see the player, enter ROAM
-            // TODO: add a cooldown in between when the player leaves the
-            // monster's vision and when the monster enters ROAM
-            if (!MonsterCanSeePlayer())
-                RoamBegin();
         } else if (state == MonsterState.STARE)
         {
             Stare();
 
             // if the player sees the monster, enter PERSUE
             if (PlayerCanSeeMonster() && MonsterCanSeePlayer())
-                PersueBegin();
+                PursueBegin();
 
             if (!MonsterCanSeePlayer())
                 RoamBegin();
@@ -134,13 +132,29 @@ public class Monster : MonoBehaviour
     // ----------------------- Animation and Navigation -----------------------
 
     // called when state changes to PERSUE
-    void PersueBegin()
+    void PursueBegin()
     {
         Run();
         state = MonsterState.PURSUE;
-        // TODO: play monster scream sound
+        StartCoroutine("PursueCooldown");
+        
     }
 
+    // waits "pursueLoseSightCooldown" seconds after losing sight of the player
+    // before entering roam mode again
+    IEnumerator PursueCooldown()
+    {
+        float timer = pursueLoseSightCooldown;
+        while (timer > 0)
+        {
+            if (MonsterCanSeePlayer())
+                timer = pursueLoseSightCooldown;
+            else
+                timer -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+        RoamBegin();
+    }
     // called when state changes to ROAM
     void RoamBegin()
     {
@@ -224,6 +238,7 @@ public class Monster : MonoBehaviour
         _doIdleArgs args; args.time = time; args.waypointNum = nextWaypoint;
         StartCoroutine("DoIdle", args);
     }
+
     // -------------------------------------------------------------------------
 
     // ------------------------- Helper functions ------------------------------

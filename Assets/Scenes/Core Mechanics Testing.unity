@@ -7107,13 +7107,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 588180763755482758, guid: b2062e81608d745c18f1c8cfe01c634b, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 571820c2e7fbe42769072b22fdb231ab, type: 2}
+    - target: {fileID: 2598141856738818141, guid: b2062e81608d745c18f1c8cfe01c634b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4072457373640824738, guid: b2062e81608d745c18f1c8cfe01c634b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814175401535249226, guid: b2062e81608d745c18f1c8cfe01c634b, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2062e81608d745c18f1c8cfe01c634b, type: 3}
@@ -7333,7 +7337,7 @@ PrefabInstance:
       objectReference: {fileID: 119139143}
     - target: {fileID: 7183329157611438322, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.5
+      value: 24.49
       objectReference: {fileID: 0}
     - target: {fileID: 7183329157611438322, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7341,7 +7345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7183329157611438322, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.2
+      value: 30.67
       objectReference: {fileID: 0}
     - target: {fileID: 7183329157611438322, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}
       propertyPath: m_LocalRotation.x
@@ -7378,6 +7382,10 @@ PrefabInstance:
     - target: {fileID: 7564815249913846344, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}
       propertyPath: m_Name
       value: monster REFERENCE
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564815249913846344, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a873e27817b4304993a1d24353b7ca, type: 3}

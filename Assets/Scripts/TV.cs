@@ -21,8 +21,7 @@ public class TV : MonoBehaviour
 
     public TVVariant variant;
 
-    // TODO: if the TV is unplugged when this is set to true, then the enemy is alerted
-    public bool isEvil;
+    // TODO: if the TV is unplugged the enemy is alerted
 
     [Header("Appearance")]
     // when isOn is set to true, the TV will activate the onState GameObject and
@@ -62,24 +61,23 @@ public class TV : MonoBehaviour
     {
         _hasUnplugged = true;
 
-        if (isEvil)
+        if (Evil())
         {
             MemoryLogicController.Instance.UnplugEvil(this);
-            Debug.Log("Unplug a an evil TV");
         }
         else
         {
             MemoryLogicController.Instance.UnplugGood(this);
-            Debug.Log("Unplug a good TV");
         }
 
+        onState.SetActive(false);
+        offState.SetActive(true);
         variant = TVVariant.OFF;
 
         // TODO: play the unplug animation
         return;
     }
 
-    // inInteractible must be set to true for On to have any effect.
     // the player will never actually turn on any TVs, but this method is
     // used to automatically display that the TV is turned on when
     // the isOn boolean is set to true
@@ -87,7 +85,7 @@ public class TV : MonoBehaviour
     {
         if (variant != TVVariant.OFF)
         {
-            if ((GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE && !isEvil) ||
+            if ((GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_ONE && !Evil()) ||
                 GameLogicController.Instance.phase == GameLogicController.GamePhase.PHASE_TWO)
             {
                 onState.SetActive(true);

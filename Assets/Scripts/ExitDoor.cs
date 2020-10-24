@@ -29,7 +29,6 @@ public class ExitDoor : MonoBehaviour
     // otherwise, alert the enemy
     void Interact()
     {
-        Debug.Log(MemoryLogicController.Instance.TVsRemaining);
         if (MemoryLogicController.Instance.TVsUnpluggedCorrectly())
         {
             GameLogicController.Instance.Win();
