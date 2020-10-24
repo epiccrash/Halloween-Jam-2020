@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -32,5 +33,15 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerClick(PointerEventData eventData)
     {
         image.color = normalColor;
+    }
+
+    public void LoadLevel(string levelString)
+    {
+        SceneManager.LoadScene(levelString);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
