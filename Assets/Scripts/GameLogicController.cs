@@ -26,6 +26,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     public GameObject monsterPrefab;
     public Transform monsterSpawn;
     public List<Monster> monsters;
+
+	[Header("Sound")]
+	public GameObject musicPlayers;
+
     
     public enum GamePhase
     {
@@ -66,9 +70,9 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         // give the player control of character
         StartCoroutine("WaitForIntroAnimationFinish");
 
-
-
-    }
+		// Enable the 80's music
+		musicPlayers.SetActive(true);
+	}
 
     // waits for the intro animation to finish and then gives control to the player
     // displays boss note and plays sound
@@ -97,7 +101,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         GameObject m = Instantiate(monsterPrefab);
         m.transform.position = monsterSpawn.transform.position;
         m.SetActive(true);
-    }
+
+		// Disable the 80's music
+		musicPlayers.SetActive(false);
+	}
 
     // pause/unpause the games
     public void TogglePause()

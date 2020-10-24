@@ -43,8 +43,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
-  m_Pitch: 1
+  m_Volume: 0.55
+  m_Pitch: 0.95
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -410,7 +410,7 @@ MonoBehaviour:
   forwMovementSpeed: 0.5
   fallSpeed: 9.24
   jumpAmount: 1
-  jumpKey: 32
+  jumpKey: 0
   sprintKey: 304
   sprintSpeedFactor: 1.33
 --- !u!114 &7560120926616651888
@@ -852,14 +852,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96974266995cc4651ba8ab52c85dd7ff, type: 3}
---- !u!224 &4569602822850708066 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4022192778075265710, guid: 96974266995cc4651ba8ab52c85dd7ff, type: 3}
-  m_PrefabInstance: {fileID: 629323669745883340}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2598141856738818141 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3221686493136248977, guid: 96974266995cc4651ba8ab52c85dd7ff, type: 3}
+  m_PrefabInstance: {fileID: 629323669745883340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4569602822850708066 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4022192778075265710, guid: 96974266995cc4651ba8ab52c85dd7ff, type: 3}
   m_PrefabInstance: {fileID: 629323669745883340}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1678593159999133651
