@@ -428,6 +428,7 @@ MonoBehaviour:
   damageScreen: {fileID: 2598141856738818141}
   damageAudioSource: {fileID: 5880164707345860149}
   damageClip: {fileID: 8300000, guid: ad003c0fd14e1c34190518fe16cf5916, type: 3}
+  damageClip2: {fileID: 8300000, guid: 9a8bbb27bc472394e93853437611eb33, type: 3}
 --- !u!1 &4702755979528091990
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,13 +858,49 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5014454675560701221, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774372801247624710, guid: 80393300585774c9da351bbe6a131f54, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8439565297069557583, guid: 80393300585774c9da351bbe6a131f54, type: 3}
       propertyPath: m_Name
       value: Pause screen
       objectReference: {fileID: 0}
     - target: {fileID: 8439565297069557583, guid: 80393300585774c9da351bbe6a131f54, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80393300585774c9da351bbe6a131f54, type: 3}
