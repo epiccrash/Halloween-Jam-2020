@@ -7,8 +7,12 @@ public class Health : MonoBehaviour
     public int health;
 
     public GameObject damageScreen;
-    Animator _damageScreenAnimator;
+	public AudioSource damageAudioSource;
+	public AudioClip damageClip;
+
+	Animator _damageScreenAnimator;
     Animator _playerAnimator;
+
 
     bool _hasDied = false;
     private void Start()
@@ -38,7 +42,7 @@ public class Health : MonoBehaviour
             health -= amt;
             if (health > 0)
             {
-                // TODO play the damage sound
+				damageAudioSource.PlayOneShot(damageClip);
                 // TODO play the damage animation
                 _damageScreenAnimator.SetTrigger("Damage");
             } else 
@@ -48,9 +52,10 @@ public class Health : MonoBehaviour
         }
     }
 
-    void Die()
-    {
-        _hasDied = true;
+    void Die() {
+		// For now, also trigger the damage visual overlay
+		_damageScreenAnimator.SetTrigger("Damage");
+		_hasDied = true;
         GameLogicController.Instance.Lose();
     }
 
