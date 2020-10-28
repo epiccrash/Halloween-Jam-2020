@@ -39,6 +39,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     [HideInInspector]
     public GamePhase phase;
 
+
+	private bool introAnimPlaying = false;
+
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -78,7 +82,9 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     // displays boss note and plays sound
     IEnumerator WaitForIntroAnimationFinish()
     {
-        yield return new WaitForSeconds(introAnimation.length);
+		introAnimPlaying = true;
+		yield return new WaitForSeconds(introAnimation.length);
+		introAnimPlaying = false;
 
         // CONTROL IS GIVEN BACK TO PLAYER FROM BossNote.cs
         bossNote.SetActive(true);
@@ -109,6 +115,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     // pause/unpause the games
     public void TogglePause()
     {
+		if (!_paused && winScreen.activeInHierarchy) return;
+		if (bossNote.activeInHierarchy) return;
+		if (introAnimPlaying) return;
+
         _paused = !_paused;
 
         // lock/unlock cursor
@@ -117,8 +127,11 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         // start/stop time
         Time.timeScale = _paused ? 0 : 1;
 
-        // display pause screen
-        if (pauseScreen != null) pauseScreen.SetActive(_paused);
+		// Mute the game if you pause
+		AudioListener.volume = _paused ? 0 : 1;
+
+		// display pause screen
+		if (pauseScreen != null) pauseScreen.SetActive(_paused);
         
     }
 
@@ -133,7 +146,7 @@ public class GameLogicController : UnitySingleton<GameLogicController>
         f.horzMovementSpeed = 0;
         f.lookspeed = 0;
         // display lose screen
-        if (loseScreen != null) loseScreen.SetActive(true);
+        loseScreen.SetActive(true);
         loseScreenAnimator.SetTrigger("Fade in");
         
     }
@@ -143,8 +156,14 @@ public class GameLogicController : UnitySingleton<GameLogicController>
     // front of the store
     public void Win()
     {
-        // display the win screen
+		// Pause the game
         Time.timeScale = 0;
-        if (winScreen != null) winScreen.SetActive(true);
-    }   
+		AudioListener.volume = 0;
+		// activate cursor
+		Cursor.lockState = CursorLockMode.None;
+		// Display win screen
+		winScreen.SetActive(true);
+		Animator winScreenAnimator = winScreen.GetComponent<Animator>();
+		winScreenAnimator.SetTrigger("Fade in");
+	}   
 }

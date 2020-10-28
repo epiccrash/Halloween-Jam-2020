@@ -19,8 +19,14 @@ public class MonsterSounds : MonoBehaviour {
 
 	public float static_pitch_adjust_rate = 0.05f;
 
+	public float roam_dist_per_step = 0.5f;
+
 	private Monster monster;
 	private Monster.MonsterState audioState;
+
+	private Vector3 prevPosition = new Vector3();
+	private float roamDistCounter = 0.0f;
+
 
 
 	// Init
@@ -52,10 +58,25 @@ public class MonsterSounds : MonoBehaviour {
 				Debug.LogError("No loop provided for MonsterState: " + monster.state + " in MonsterSounds component");
 				return;
 			}
-			
-			loopAudioSource.clip = targetLoops[Random.Range(0, targetLoops.Count)];
-			loopAudioSource.pitch = Random.Range(pitch_min, pitch_max);
-			loopAudioSource.Play();
+
+			// Roaming is now distance-based, not loop based
+			if (audioState != Monster.MonsterState.ROAM) {
+				loopAudioSource.clip = targetLoops[Random.Range(0, targetLoops.Count)];
+				loopAudioSource.pitch = Random.Range(pitch_min, pitch_max);
+				loopAudioSource.Play();
+			} else {
+				loopAudioSource.Stop();
+			}
+		}
+
+		if (audioState == Monster.MonsterState.ROAM) {
+			roamDistCounter += (transform.position - prevPosition).magnitude;
+			prevPosition = transform.position;
+			if (roamDistCounter > roam_dist_per_step) {
+				roamDistCounter = 0;
+				loopAudioSource.pitch = Random.Range(pitch_min, pitch_max);
+				loopAudioSource.PlayOneShot(RoamLoops[Random.Range(0, RoamLoops.Count)]);
+			}
 		}
 	}
 }

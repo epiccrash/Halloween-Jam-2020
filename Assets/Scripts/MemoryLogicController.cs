@@ -50,7 +50,9 @@ public class MemoryLogicController : UnitySingleton<MemoryLogicController>
     // Returns true when the player has unplugged all TVs correctly, false otherwise
     public bool TVsUnpluggedCorrectly()
     {
-        return TVsRemaining == 0;
+		Debug.Assert(TVsRemaining == goodTVs.Count);
+		return goodTVs.Count == 0 || TVsRemaining < 0;
+		//return TVsRemaining == 0;
     }
 }
 

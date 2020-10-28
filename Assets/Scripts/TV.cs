@@ -46,6 +46,11 @@ public class TV : MonoBehaviour
 	// unplug the tv by going near to it and pressing the button
 	private void OnTriggerStay(Collider other)
     {
+		// Only valid to interact with if you're colliding with the PLAYER (not Monster or other collider)
+		if (!other.CompareTag("Player")) {
+			return;
+		}
+
 		// can only interact with EVIl and GOOD tvs, DECOY and OFF are just decoration
 		if (variant == TVVariant.EVIL || variant == TVVariant.GOOD)
         {
@@ -81,7 +86,7 @@ public class TV : MonoBehaviour
         {
             if (Evil())
             {
-                Debug.Log("Unplug during phase 2");
+                //Debug.Log("Unplug during phase 2");
                 evilState.SetActive(true);
                 MemoryLogicController.Instance.UnplugEvil(this);
             }

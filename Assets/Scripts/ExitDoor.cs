@@ -10,14 +10,10 @@ public class ExitDoor : MonoBehaviour
 
     // call Interact() when the player pressed the openDoor key while within
     // range of door collider
-    private void OnTriggerStay(Collider other)
-    {
-        if (!_hasOpened)
-        {
-            if (other.gameObject.tag == "Player")
-            {
-            
-                if (Input.GetKeyDown(openDoor))
+    private void OnTriggerStay(Collider other) {
+		if (!_hasOpened) {
+			if (other.gameObject.tag == "Player") {
+				if (Input.GetKey(openDoor))
                 {
                     Interact();
                 }
@@ -27,9 +23,8 @@ public class ExitDoor : MonoBehaviour
 
     // if TVs have been turned off correcltly, proceed to win screen.
     // otherwise, alert the enemy
-    void Interact()
-    {
-        if (MemoryLogicController.Instance.TVsUnpluggedCorrectly())
+    void Interact() {
+		if (MemoryLogicController.Instance.TVsUnpluggedCorrectly())
         {
             GameLogicController.Instance.Win();
         }

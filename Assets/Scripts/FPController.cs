@@ -43,7 +43,7 @@ public class FPController : MonoBehaviour
     {
         save_forwMoementSpeed = forwMovementSpeed;
         save_horzMoementSpeed = horzMovementSpeed;
-        GiveControl();
+        //GiveControl();
     }
 
     void FixedUpdate()

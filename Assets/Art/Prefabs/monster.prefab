@@ -2979,7 +2979,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5bb58847a37a64041a4008d9e596df29, type: 3}
   pitch_min: 0.8
   pitch_max: 1.2
-  static_pitch_adjust_rate: 0.05
+  static_pitch_adjust_rate: 0.1
+  roam_dist_per_step: 0.45
 --- !u!1 &7639961761795198462
 GameObject:
   m_ObjectHideFlags: 0
@@ -3514,13 +3515,13 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2847470865532669473, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
---- !u!4 &7336735319134599555 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1926227150315548363, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
-  m_PrefabInstance: {fileID: 9181155762164012872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &503565978180270185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8761473881861599009, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
+  m_PrefabInstance: {fileID: 9181155762164012872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7336735319134599555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1926227150315548363, guid: 6a02dfcc247ee4fd986443accca8687d, type: 3}
   m_PrefabInstance: {fileID: 9181155762164012872}
   m_PrefabAsset: {fileID: 0}
