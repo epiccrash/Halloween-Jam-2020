@@ -35,6 +35,9 @@ public class TV : MonoBehaviour
 	public AudioSource audioSource;
 	public AudioClip turnOffClip;
 
+    [Header("Gameplay")]
+    public int playerDamageAmount;
+
     bool _hasUnplugged = false;
 
 
@@ -89,6 +92,7 @@ public class TV : MonoBehaviour
                 //Debug.Log("Unplug during phase 2");
                 evilState.SetActive(true);
                 MemoryLogicController.Instance.UnplugEvil(this);
+                GameLogicController.Instance.player.GetComponent<Health>().Damage(playerDamageAmount);
             }
             else
             {

@@ -16,6 +16,8 @@ public class GameLogicController : UnitySingleton<GameLogicController>
 
     [Header("Lighting")]
     public GameObject phase1Lights;
+    public Color phase2AmbientColor; // the ambient color in lighting settings for phase 2
+    public bool useFogPhase2; // if set to true, fog will activate for phase 2
 
     [Header("Player")]
     public GameObject player;
@@ -100,8 +102,10 @@ public class GameLogicController : UnitySingleton<GameLogicController>
             tv.DisplayState();
         }
 
-        // turn off the lights
+        // phase 2 lighting
         phase1Lights.SetActive(false);
+        RenderSettings.fog = useFogPhase2;
+        RenderSettings.ambientLight = phase2AmbientColor;
 
         // spawn the enemy
         GameObject m = Instantiate(monsterPrefab);

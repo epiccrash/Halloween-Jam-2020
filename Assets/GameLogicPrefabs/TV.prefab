@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3462044207767720290}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.64, y: 0.021000057, z: -0.16000032}
+  m_LocalPosition: {x: 0.89, y: 0.021000057, z: -0.16000032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1926227150315548363}
@@ -727,6 +727,7 @@ MonoBehaviour:
   evilState: {fileID: 2428362228921888177}
   audioSource: {fileID: 9013678990380783950}
   turnOffClip: {fileID: 8300000, guid: 3a548d169c593b14795150a49d3f34d8, type: 3}
+  playerDamageAmount: 51
 --- !u!65 &4296819188452608295
 BoxCollider:
   m_ObjectHideFlags: 0
